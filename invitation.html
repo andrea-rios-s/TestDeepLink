@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Te han invitado a unirte!</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
+        .btn { display: inline-block; padding: 15px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
+        .loading { font-size: 18px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <h2>Abriendo la aplicación...</h2>
+    <p class="loading">Si la app no se abre automáticamente en unos segundos, haz clic en el botón de abajo.</p>
+    
+    <a id="btnAbrirApp" href="#" class="btn">Abrir la App</a>
+
+    <script>
+        // 1. Obtener los parámetros de la URL actual (ej: ?code=AMIGO123)
+        const urlParams = new URLSearchParams(window.location.search);
+        const codigoReferido = urlParams.get('code');
+
+        if (codigoReferido) {
+            // 2. Construir el esquema personalizado que tu app entiende
+            const esquemaApp = "credi5://referidos?code=" + codigoReferido;
+
+            // Asignar el esquema al botón de respaldo
+            document.getElementById('btnAbrirApp').href = esquemaApp;
+
+            // 3. Intentar redirigir automáticamente de inmediato
+            window.location.href = esquemaApp;
+        } else {
+            document.body.innerHTML = "<h2>Enlace no válido</h2><p>Falta el código de referido.</p>";
+        }
+    </script>
+</body>
+</html>
